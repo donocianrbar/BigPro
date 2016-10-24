@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/reset.css">
+    <script type="text/javascript" src="js/Tween.js"></script>
+    <title>Document</title>
+    <style>
+        #box {
+            width: 469px;
+            margin: 0px auto;
+            border: 1px solid gray;
+            overflow: hidden;
+            background-color: rgba(245,245,245,1);
+        }
+        #content1, #content2, #content3 {
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        #reply {
+            width: 400px;
+            height: 110px;
+            padding-top: 10px;
+            resize: vertical;
+        }
+        .txt {
+            font: 14px/30px "simhei";
+            float: left;
+        }
+        #iName {
+            height: 30px;
+        }
+
+        input {
+            width: 400px;
+        }
+        #commit {
+            width: 100px;
+            height: 30px;
+            border-radius: 0px;
+            margin-left: 33px;
+        }
+        
+        #show {
+            margin-top: 10px;
+            position: relative;
+        }
+        #show>div {
+            font: 20px/20px "simhei";
+            padding: 14px;
+        }
+
+        .msgName{
+            display: block;
+            width: 410px;
+            margin-left: 10px;
+            padding: 20px;
+            font-size: 14px;
+            background-color: rgba(221,221,221,1);
+        }
+        .msgBox {
+            background-color: #fff;
+            overflow: hidden;
+        }
+        .msgBox a {
+            float: right;
+            margin-right: 10px;
+            text-decoration: underline;
+        }
+        .msgContent {
+            float: left;
+            width: 360px;
+            padding: 10px 20px;
+            margin-left: 25px;
+            background-color: rgba(245,245,245,1);
+        }
+        li {
+            display: inline-block;
+            background-color: rgba(245,245,245,1);
+            overflow: hidden;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <section id="top">
+            <div id="content1">
+                <span class="txt">姓名 : </span>
+                <input type="text" id="iName">
+            </div>
+            <div id="content2">
+                <span class="txt">内容 : </span>
+                <textarea name="" id="reply" cols="30" rows="10"></textarea>
+            </div>
+            <div  id="content3">
+                <input type="button" id="commit" value="提交">
+            </div>
+        </section>
+        <section id="show">
+            <div>显示留言</div>
+            <ul id="list">
+            </ul>
+        </section>
+    </div>
+</body>
+</html>
+<script type="text/javascript" src="js/dom.js"></script>
+<script type="text/javascript">
+    var oName = document.getElementById('iName');
+    var oReply = document.getElementById('reply');
+    var oCmt = document.getElementById('commit');
+    var oList = document.getElementById('list');
+    var timer = null;
+    oCmt.onclick = function () {
+        if (oName.value.length == 0) {
+            alert('请输入名字');
+            return;
+        }
+        if (oReply.value.length == 0) {
+            alert('请输入留言');
+            return;
+        }
+        if (oList.children.length > 0) {
+             oList.insertBefore(createNew(oName.value,oReply.value),first(oList));
+        }else{
+            oList.appendChild(createNew(oName.value,oReply.value));
+        }
+        addTween(oList.children[0],0,oList.children[0].offsetHeight,'height');
+        oName.value = '';
+        oReply.value = '';
+    };
+
+    function createNew(name,content) {
+        var liObj = document.createElement('li');
+        var str = '<span class="msgName">'+ name +'</span>';
+        str += '<div class="msgBox"><span class="msgContent">'+ content +'</span><a href="#" class="msgDel">删除</a></div>';
+        liObj.innerHTML = str;
+        var aaa = liObj.children[1].children[1];
+        aaa.onclick = function (){
+            var thisH = liObj.offsetHeight;
+            addTween(liObj,thisH,-thisH,'height');
+            setTimeout(function () {
+                oList.removeChild(liObj);
+            },1201);
+        };
+        return liObj;
+    };
+
+    function addTween(obj,start,c,styleName) {
+        var t = 0;
+        var maxT = 40;
+        clearInterval(timer);
+        timer = setInterval(function () {
+            t++;
+            if (t > maxT) {
+                clearInterval(timer);
+                return;
+            }
+            obj.style[styleName] = Tween.Bounce.easeOut(t,start,c,maxT) + 'px';
+        },30);
+    };
+</script>
