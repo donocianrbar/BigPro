@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        #canvas {
+            margin: 20px auto;
+            display: block;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+</body>
+</html>
+<script type="text/javascript">
+    var canvas = document.querySelector("#canvas");
+    canvas.width = 800;
+    canvas.height = 600;
+    var ctx = canvas.getContext("2d");
+
+    function DrawRect(ctx,draw) {
+        ctx.beginPath();
+        var x_r = draw.x;
+        var y_r = draw.y;
+        if (draw.x + draw.r > 800) {
+        		x_r = 800 - draw.r;
+        }else if (draw.x - draw.r <= 0) {
+        		x_r = draw.r;
+        }
+        if (draw.y + draw.r > 600) {
+        		y_r = 600 - draw.r;
+        }else if (draw.y - draw.r <= 0) {
+        		y_r = draw.r;
+        }
+        ctx.arc(x_r,y_r,draw.r,draw.startAngle,draw.endAngle,draw.anticlockwise);
+        ctx.strokeStyle = draw.color;
+        ctx.lineWidth = draw.lineW;
+        ctx.fillStyle = draw.fillColor;
+        ctx.fill();
+        if (draw.isBorder) {
+            ctx.stroke();
+        }
+        ctx.closePath();
+    };
+
+    function Rand(min,max) {
+        return parseInt(Math.random()*(max-min + 1) + min);  
+    };
+
+    for (let i = 0; i < 100; i++) {
+        var x = Rand(0,800);
+        var y = Rand(0,600);
+        var r = Rand(5,20);
+        var color = `rgb(${Rand(0,255)},${Rand(0,255)},${Rand(0,255)})`;
+        DrawRect(ctx,{
+            x:x,
+            y:y,
+            r:r,
+            startAngle:0,
+            endAngle:Math.PI*2,
+            anticlockwise:true,
+            lineW:20,
+            color:"red",
+            fillColor:color,
+            isBorder:false
+        });
+    }
+</script>

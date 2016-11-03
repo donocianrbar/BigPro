@@ -55,37 +55,59 @@
 </body>
 </html>
 <script>
-	function Tab () {
-		var oBody = document.getElementsByTagName('body')[0];
-		var oBox = document.createElement('div');
-		oBox.className = 'box';
-		var oUl = document.createElement('ul');
-		oUl.className = 'tab';
-		for (var i = 0; i < 3; i++) {
-			var ul_li = document.createElement('li');
-			ul_li.index = i;
-			ul_li.onclick=function(){
-				var tabs = oUl.children;
-				var pages = oOl.children;
-		        for(let i = 0;i<length;i++){
-		            tabs[i].className = "";
-		            pages[i].className = "";
-				}
-                this.className = "active";
-            	pages[this.index].className = "active";
-            }
-			oUl.appendChild(ul_li);
-		}
-		var oOl = document.createElement('ol');
-		oOl.className = 'page';
-		for (var i = 0; i < 3; i++) {
-			var ol_li = document.createElement('li');
-			ol_li.innerHTML = i;
-			oOl.appendChild(ol_li);
-		}
-		oBox.appendChild(oUl);
-		oBox.appendChild(oOl);
-		oBody.appendChild(oBox);
+function Tab() {
+	this.width = width;
+	this.height = height;
+	this.btns = this.getChilds("ol li");
+	this.views = this.getChilds("ul li");
+	this.getClass = function (name) {
+		return document.querySelector(name);
 	}
-	Tab();
+	this.getChilds = function () {
+		return document.querySelectorAll(name);
+	}
+	this.init = function () {
+
+		var btns = this.btns;
+		var views = this.views;
+		var length = btns.length;
+		for (var i = 0; i < btns.length; i++) {
+			btns[i]
+		}
+	}
+}
+	// function Tab () {
+	// 	var oBody = document.getElementsByTagName('body')[0];
+	// 	var oBox = document.createElement('div');
+	// 	oBox.className = 'box';
+	// 	var oUl = document.createElement('ul');
+	// 	oUl.className = 'tab';
+	// 	for (var i = 0; i < 3; i++) {
+	// 		var ul_li = document.createElement('li');
+	// 		ul_li.index = i;
+	// 		ul_li.onclick=function(){
+	// 			var tabs = oUl.children;
+	// 			var pages = oOl.children;
+	// 	        for(let i = 0;i<length;i++){
+	// 	            tabs[i].className = "";
+	// 	            pages[i].className = "";
+	// 			}
+ //                this.className = "active";
+ //            	pages[this.index].className = "active";
+ //            }
+	// 		oUl.appendChild(ul_li);
+	// 	}
+	// 	var oOl = document.createElement('ol');
+	// 	oOl.className = 'page';
+	// 	for (var i = 0; i < 3; i++) {
+	// 		var ol_li = document.createElement('li');
+	// 		ol_li.innerHTML = i;
+	// 		oOl.appendChild(ol_li);
+	// 	}
+	// 	oBox.appendChild(oUl);
+	// 	oBox.appendChild(oOl);
+	// 	oBody.appendChild(oBox);
+	// }
+	// Tab();
+	// // 没写完
 </script>
