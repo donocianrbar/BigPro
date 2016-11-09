@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+        }
+        #canvas {
+            display: block;
+            margin: 20px auto;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="800" height="600"></canvas>
+</body>
+</html>
+<script type="text/javascript">
+    var canvas = document.querySelector("#canvas");
+    var ctx = canvas.getContext("2d");
+    ctx.moveTo(200,100);
+    ctx.lineTo(600,100);
+    ctx.arcTo(700,100,700,200,100);
+    ctx.lineTo(700,400);
+    ctx.arcTo(700,500,600,500,100);
+    ctx.lineTo(200,500);
+    ctx.arcTo(100,500,100,400,100);
+    ctx.lineTo(100,200);
+    ctx.arcTo(100,100,200,100,100);
+    // ctx.moveTo(20,20);           // 创建开始点
+    // ctx.lineTo(100,20);          // 创建水平线
+    // ctx.arcTo(150,20,150,70,50); // 创建弧
+    // ctx.lineTo(150,120);         // 创建垂直线
+    ctx.stroke();
+</script>
